@@ -19,7 +19,7 @@ export const SignIn = ({setToken}) => {
       const signInUserResponse = await fetch('https://task-management-system-backend-98ub.onrender.com/api/user/create-session', {
         method: "POST",
         headers: {
-          'content-type': 'appliation/json'
+          'content-type': 'application/json'
         },
         body: JSON.stringify(sgnInObj)
       })
