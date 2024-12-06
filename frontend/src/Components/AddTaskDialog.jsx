@@ -26,7 +26,6 @@ export function AddTaskDialog() {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const handleCreateTask=async ()=>{
-        console.log('handleCreateTask clicked !')
         const obj={
             title:title,
             description:description,
@@ -34,7 +33,6 @@ export function AddTaskDialog() {
             status:status,
             priority:priority
         }
-        console.log('*** object created at frontend for task : '+obj);
         const createdTaskResponse = await fetch('http://localhost:8000/api/task/create-task', {
             method: 'POST', // Method should be part of the options object
             headers: {
@@ -44,7 +42,6 @@ export function AddTaskDialog() {
             body: JSON.stringify(obj), // The body should be part of the options object
         });
         const createdTaskData=await createdTaskResponse.json();
-        console.log(" createdTaskData -> "+JSON.stringify(createdTaskData));
         dispatch(addTask({task:createdTaskData.newTask}))
         toast.success("Task Created !", {
             style: {
@@ -52,6 +49,8 @@ export function AddTaskDialog() {
               color: 'white',           // Custom text color
             }
           });
+          setTitle("");
+          setDescription("");
         handleClose();
     }
     const handleClickOpen = () => {

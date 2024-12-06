@@ -17,14 +17,20 @@ import { ToastContainer, toast } from 'react-toastify';
 export function UpdateTaskDialog({prevtask}) {
     console.log("prevTask get --> "+JSON.stringify(prevtask))
     const formatDeadline = (isoDate) => {
+        if (!isoDate) return ""; // Return empty string if no date is provided
         const date = new Date(isoDate);
-        return date.toLocaleDateString('en-GB'); // 'en-GB' formats it as dd/mm/yyyy
-      };
+        console.log("Formatted date: ", date); // Debugging: check the parsed date
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Ensure 2-digit month
+        const day = String(date.getDate()).padStart(2, "0"); // Ensure 2-digit day
+        return `${year}-${month}-${day}`; // Return in YYYY-MM-DD format
+    };
+    
     const dispatch =useDispatch();
     const [token, setToken]=useState(localStorage.getItem('token'))
     const [title, setTitle] = React.useState(prevtask.title);
     const [description, setDescription] = React.useState(prevtask.description || "");
-    const [deadline, setDeadline] = React.useState(formatDeadline(prevtask.deadlne) || "");
+    const [deadline, setDeadline] = React.useState(formatDeadline(prevtask.deadline) || "");
     const [priority, setPriority]= React.useState(prevtask.priority || 'low')
     const [status, setStatus] = React.useState(prevtask.status || 'progress');
     const [open, setOpen] = React.useState(false);
@@ -33,7 +39,6 @@ export function UpdateTaskDialog({prevtask}) {
    
     const handleUpdateTask=async ()=>{
         try {
-            console.log('handleCreateTask clicked !')
         const obj={
             title:title,
             description:description,
@@ -41,7 +46,6 @@ export function UpdateTaskDialog({prevtask}) {
             status:status,
             priority:priority
         }
-        console.log('*** object created at frontend for task : '+obj);
         const updatedTaskResponse = await fetch(`http://localhost:8000/api/task/update-task/${prevtask._id}`, {
             method: 'POST', // Method should be part of the options object
             headers: {
@@ -51,7 +55,6 @@ export function UpdateTaskDialog({prevtask}) {
             body: JSON.stringify(obj), // The body should be part of the options object
         });
         const updatedTaskData=await updatedTaskResponse.json();
-        console.log(" updatedTaskData -> "+JSON.stringify(updatedTaskData));
         dispatch(updateTask({task:updatedTaskData.updatedTask}))
         toast.success("Task Updated !", {
             style: {

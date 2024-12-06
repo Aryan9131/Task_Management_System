@@ -17,7 +17,6 @@ const Rehydrate = ({ children }) => {
                   },
                 })
                 const fetchedUserData = await fetchedUserResponse.json();
-                console.log('user get --> ' + JSON.stringify(fetchedUserData))
                 if (fetchedUserData.user) {
                   localStorage.setItem('userId', fetchedUserData.user._id);
                   dispatch(setUser(fetchedUserData.user))

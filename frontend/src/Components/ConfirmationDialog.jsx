@@ -33,7 +33,6 @@ export function ConfirmationDialog({currentTask }) {
             },
         });
         const deletedTaskData=await deletedTaskResponse.json();
-        console.log("deletedTaskData --> "+JSON.stringify(deletedTaskData));
         dispatch(deleteTask({task:currentTask}))
         toast.success("Task Deleted !", {
           style: {

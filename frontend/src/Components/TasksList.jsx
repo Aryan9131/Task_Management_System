@@ -4,9 +4,7 @@ import { TaskCard } from './TaskCard'
 import { useSelector } from 'react-redux'
 export const TasksList = ({ title, color, listPriority }) => {
     const { tasks } = useSelector((state) => state.tasks)
-    useEffect(() => {
-        console.log('tasks got in lists : ' + JSON.stringify(tasks))
-    }, [tasks])
+   
     return (
         <Box sx={{
             position:'relative',

@@ -23,7 +23,6 @@ export const SignUp = () => {
        body:JSON.stringify(userObj)
      })
     const createdUserData=await createdUserResponse.json();
-    console.log("user created --> "+ JSON.stringify(createdUserData))
     toast.success("Sign Up Successful !", {
       style: {
         backgroundColor: 'green', // Custom background color

@@ -14,7 +14,6 @@ const taskSlice = createSlice({
     // You can define additional reducers here if needed
     setTasks: (state, action) => {
       const { allTasks } = action.payload
-      console.log("data get in setTasks --> " + JSON.stringify(action.payload))
       let activeTasksCount = 0;
       let expiredTasksCount = 0;
       let completedTasksCount = 0;
@@ -36,7 +35,6 @@ const taskSlice = createSlice({
       state.completedTasks = completedTasksCount;
     },
     addTask: (state, action) => {
-      console.log('data get in add task : ' + JSON.stringify(action.payload))
       const { task } = action.payload
       state.tasks.push(task);
       if (task.status == 'progress') {
@@ -47,7 +45,6 @@ const taskSlice = createSlice({
       }
     },
     updateTask: (state, action) => {
-      console.log('data get in updateTask : ' + JSON.stringify(action.payload))
       const { task } = action.payload;
       state.tasks = state.tasks.map((prevTask) => {
         if (prevTask._id == task._id) {
@@ -68,7 +65,6 @@ const taskSlice = createSlice({
     },
     deleteTask: (state, action) => {
       const { task } = action.payload;
-      console.log("data get to delete task --> " + action.payload);
       state.tasks = state.tasks.filter((prevTask) => prevTask._id.toString() != task._id.toString())
       if (task.status == 'progress') {
         state.activeTasks--;

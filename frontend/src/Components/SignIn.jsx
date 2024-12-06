@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const SignIn = () => {
+export const SignIn = ({setToken}) => {
    
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -24,8 +24,9 @@ export const SignIn = () => {
         body: JSON.stringify(sgnInObj)
       })
       const signInUserData = await signInUserResponse.json();
-      console.log("user signed In --> " + JSON.stringify(signInUserData)) ;
       localStorage.setItem('token', signInUserData.data.token);
+      setToken(signInUserData.data.token); // Update React state
+
       toast.success("Sign In Successful !", {
         style: {
           backgroundColor: 'green', // Custom background color
