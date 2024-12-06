@@ -42,12 +42,12 @@ export const TaskDetail = () => {
     >
       <Box sx={{paddingLeft:"20px",borderRadius:'15px', backgroundColor:'whitesmoke', width:{xs:'100%', md:'40%'},height:{xs:'100%', md:'70%'}}}>
          <Box sx={{borderBottom:'1px solid black', width:'80%', display:'flex',justifyContent:'space-between', marginBottom:'10px', alignItems:'center'}}>
-             <Typography variant="h3">{currentTask.title}</Typography>
+             <Typography variant="h5">{currentTask.title}</Typography>
              <MenuButtons currentTask={currentTask} setCurrentTask={setCurrentTask}/>
          </Box>
-        <Typography sx={{ minHeight: '200px', fontSize:'1.5rem' }}><span style={{ fontWeight: '600', color: 'black' }}>Description</span>: {currentTask.description}</Typography>
-        <Typography sx={{fontSize:'1.5rem', fontWeight: '600'}}>Status: <span style={{color: 'grey' }}>{currentTask.status}</span> </Typography>
-        <Typography sx={{fontSize:'1.5rem', fontWeight: '600'}}>Priority:<span style={{color: 'grey' }}>{currentTask.priority}</span> </Typography>
+        <Typography sx={{ minHeight: '100px', fontSize:'1rem' }}><span style={{ fontWeight: '600', color: 'black' }}>Description</span>: {currentTask.description}</Typography>
+        <Typography sx={{fontSize:'1rem', fontWeight: '600'}}>Status: <span style={{color: 'grey' }}>{currentTask.status}</span> </Typography>
+        <Typography sx={{fontSize:'1rem', fontWeight: '600'}}>Priority:<span style={{color: 'grey' }}>{currentTask.priority}</span> </Typography>
       </Box>
     </Box>
   );
