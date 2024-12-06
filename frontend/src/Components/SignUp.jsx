@@ -18,7 +18,7 @@ export const SignUp = () => {
      const createdUserResponse=await fetch('https://task-management-system-backend-98ub.onrender.com/api/user/create-user',{
        method:"POST",
        headers:{
-          'content-type':'appliation/json'
+          'content-type':'application/json'
        },
        body:JSON.stringify(userObj)
      })
