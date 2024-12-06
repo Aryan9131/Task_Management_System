@@ -3,9 +3,15 @@ const mongoose = require('mongoose');
 
 // Define the main user schema
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
+    name: {
+        Type:String
+    },
+    email:  {
+        Type:String
+    },
+    password:  {
+        Type:String
+    },
     tasks: [
         {
             type: mongoose.Schema.Types.ObjectId,
