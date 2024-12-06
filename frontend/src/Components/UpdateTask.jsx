@@ -6,27 +6,34 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../redux/slices/taskSlice';
+import { addTask , updateTask} from '../redux/slices/taskSlice';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
-export function AddTaskDialog() {
+export function UpdateTaskDialog({prevtask}) {
+    console.log("prevTask get --> "+JSON.stringify(prevtask))
+    const formatDeadline = (isoDate) => {
+        const date = new Date(isoDate);
+        return date.toLocaleDateString('en-GB'); // 'en-GB' formats it as dd/mm/yyyy
+      };
     const dispatch =useDispatch();
     const [token, setToken]=useState(localStorage.getItem('token'))
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [deadline, setDeadline] = React.useState("");
-    const [priority, setPriority]= React.useState("low")
-    const [status, setStatus] = React.useState("progress");
+    const [title, setTitle] = React.useState(prevtask.title);
+    const [description, setDescription] = React.useState(prevtask.description || "");
+    const [deadline, setDeadline] = React.useState(formatDeadline(prevtask.deadlne) || "");
+    const [priority, setPriority]= React.useState(prevtask.priority || 'low')
+    const [status, setStatus] = React.useState(prevtask.status || 'progress');
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const handleCreateTask=async ()=>{
-        console.log('handleCreateTask clicked !')
+   
+    const handleUpdateTask=async ()=>{
+        try {
+            console.log('handleCreateTask clicked !')
         const obj={
             title:title,
             description:description,
@@ -35,7 +42,7 @@ export function AddTaskDialog() {
             priority:priority
         }
         console.log('*** object created at frontend for task : '+obj);
-        const createdTaskResponse = await fetch('http://localhost:8000/api/task/create-task', {
+        const updatedTaskResponse = await fetch(`http://localhost:8000/api/task/update-task/${prevtask._id}`, {
             method: 'POST', // Method should be part of the options object
             headers: {
                 'Content-Type': 'application/json', // Header keys should be quoted, not the object itself
@@ -43,16 +50,24 @@ export function AddTaskDialog() {
             },
             body: JSON.stringify(obj), // The body should be part of the options object
         });
-        const createdTaskData=await createdTaskResponse.json();
-        console.log(" createdTaskData -> "+JSON.stringify(createdTaskData));
-        dispatch(addTask({task:createdTaskData.newTask}))
-        toast.success("Task Created !", {
+        const updatedTaskData=await updatedTaskResponse.json();
+        console.log(" updatedTaskData -> "+JSON.stringify(updatedTaskData));
+        dispatch(updateTask({task:updatedTaskData.updatedTask}))
+        toast.success("Task Updated !", {
             style: {
               backgroundColor: 'green', // Custom background color
               color: 'white',           // Custom text color
             }
           });
         handleClose();
+        } catch (error) {
+            toast.error("Error while Updating !", {
+                style: {
+                  backgroundColor: 'red',   // Custom background color for error
+                  color: 'white',           // White text color
+                }
+              });
+        }
     }
     const handleClickOpen = () => {
         setOpen(true);
@@ -64,13 +79,11 @@ export function AddTaskDialog() {
 
     return (
         <React.Fragment>
-            <Button
-                variant="outlined"
-                sx={{ width: '50%', marginLeft: '18px' }}
+            <Typography
                 onClick={handleClickOpen}
             >
-                Add Task
-            </Button>
+               Edit
+            </Typography>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
@@ -150,8 +163,8 @@ export function AddTaskDialog() {
                     <Button autoFocus onClick={handleClose}>
                         Close
                     </Button>
-                    <Button onClick={handleCreateTask} autoFocus>
-                        Add
+                    <Button onClick={handleUpdateTask} autoFocus>
+                        Update
                     </Button>
                 </DialogActions>
             </Dialog>

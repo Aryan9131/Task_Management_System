@@ -4,8 +4,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton } from '@mui/material';
-
-export function MenuButtons() {
+import {UpdateTaskDialog} from './UpdateTask'
+import { ConfirmationDialog } from './ConfirmationDialog';
+export function MenuButtons({currentTask}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -41,8 +42,8 @@ export function MenuButtons() {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem><UpdateTaskDialog prevtask={currentTask}/></MenuItem>
+        <MenuItem><ConfirmationDialog currentTask={currentTask}/></MenuItem>
       </Menu>
     </div>
   );

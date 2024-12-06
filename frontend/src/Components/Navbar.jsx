@@ -1,10 +1,16 @@
-import { Box, TextField, InputAdornment } from '@mui/material'
+import { Box, TextField, InputAdornment, IconButton,Button } from '@mui/material'
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
-
+import { useNavigate } from 'react-router-dom';
 export const Navbar = () => {
+    const navigate=useNavigate()
+    const handleLogout=()=>{
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        window.location.reload() 
+    }
     return (
-        <Box sx={{ height: '13vh', width: '90vw', backgroundColor: '#ecedef', margin: '20px 0px', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ height: '13vh', width: {xs:'100vw', md:'90vw'}, backgroundColor: '#ecedef', margin: {xs:'5px 0px',md:'20px 0px'}, borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
             <TextField
                 sx={{
                     width: '40%',
@@ -31,6 +37,8 @@ export const Navbar = () => {
                     ),
                 }}
             />
+         <Button sx={{positon:'absolute', top:'0%', right:{xs:'-5%',sm:'-15%', md:'-30%'}}} onClick={()=>navigate('/all-tasks')} >All Tasks</Button>
+         <Button sx={{positon:'absolute', top:'0%', right:{xs:'-10%',sm:'-20%', md:'-40%'}}} onClick={handleLogout}>logout</Button>
         </Box>
     )
 }

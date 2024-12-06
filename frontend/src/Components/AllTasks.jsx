@@ -7,8 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { TaskCard } from './TaskCard'
 
-export const HomePage = () => {
+export const AllTasks = () => {
   const dispatch =useDispatch();
   const [token, setToken]=useState(localStorage.getItem('token'))
   const {tasks}=useSelector((state)=>state.tasks)
@@ -44,9 +45,11 @@ export const HomePage = () => {
                justifyContent: { xs: 'flex-start', md: 'space-evenly' }, 
                flexWrap: 'wrap', width: { xs: '100vw', md: '80vw' },
                height: '80vh', overflowY:'auto' }}>
-      <TasksList title={"High"} color={"purple"} listPriority={'high'} />
-      <TasksList title={"Moderate"} color={"blue"} listPriority={'moderate'} />
-      <TasksList title={"Low"} color={"orange"}  listPriority={'low'}/>
+          {
+            tasks.map((task, index)=>{
+                return (<TaskCard key={index} data={task}/>)
+            })
+          }
     </Box>
   )
 }
