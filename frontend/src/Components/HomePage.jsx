@@ -21,7 +21,7 @@ export const HomePage = () => {
         const fetchedUserResponse =  await fetch('https://task-management-system-backend-98ub.onrender.com/api/user/get-user', {
           method: "GET",
           headers: {
-            'content-type': 'appliation/json',
+            'content-type': 'application/json',
              'Authorization': `Bearer ${token}`
           },
         })
