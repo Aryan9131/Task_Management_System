@@ -59,12 +59,16 @@ export const SignIn = ({setToken}) => {
         <TextField
           variant='filled'
           label="Email"
+           value={email}
+          onChange={(e)=>setEmail(e.target.value)}
           sx={{ width: '80%', margin: '20px 0px' }}
         />
         <TextField
           variant='filled'
           type='password'
           label="Password"
+           value={password}
+          onChange={(e)=>setPassword(e.target.value)}
           sx={{ width: '80%' }}
         />
         <Box sx={{ marginTop: '20px', width: '100%', display: 'flex', justifyContent: 'space-around' }}>
