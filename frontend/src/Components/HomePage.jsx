@@ -18,7 +18,7 @@ export const HomePage = () => {
   useEffect(() => {
     try {
       const fetchUser = async () => {
-        const fetchedUserResponse =  await fetch('http://localhost:8000/api/user/get-user', {
+        const fetchedUserResponse =  await fetch('https://task-management-system-backend-98ub.onrender.com/api/user/get-user', {
           method: "GET",
           headers: {
             'content-type': 'appliation/json',

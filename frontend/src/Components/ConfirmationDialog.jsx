@@ -25,7 +25,7 @@ export function ConfirmationDialog({currentTask }) {
   };
   const handleTaskDelete=async ()=>{
     try {
-        const deletedTaskResponse=await fetch(`http://localhost:8000/api/task/delete-task/${currentTask._id}`, {
+        const deletedTaskResponse=await fetch(`https://task-management-system-backend-98ub.onrender.com/api/task/delete-task/${currentTask._id}`, {
             method: 'delete', // Method should be part of the options object
             headers: {
                 'Content-Type': 'application/json', // Header keys should be quoted, not the object itself

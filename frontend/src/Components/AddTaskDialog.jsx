@@ -33,7 +33,7 @@ export function AddTaskDialog() {
             status:status,
             priority:priority
         }
-        const createdTaskResponse = await fetch('http://localhost:8000/api/task/create-task', {
+        const createdTaskResponse = await fetch('https://task-management-system-backend-98ub.onrender.com/api/task/create-task', {
             method: 'POST', // Method should be part of the options object
             headers: {
                 'Content-Type': 'application/json', // Header keys should be quoted, not the object itself
